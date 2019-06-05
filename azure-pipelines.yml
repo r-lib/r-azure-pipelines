@@ -15,6 +15,7 @@ jobs:
           containerImage: rstudio/r-base:3.6-xenial
     variables:
       R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
+    container: $[ variables['containerImage'] ]
     steps:
       - script: |
            echo 'options(repos = "https://cloud.r-project.org")' > ~/.Rprofile
