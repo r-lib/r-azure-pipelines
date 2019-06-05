@@ -5,13 +5,14 @@ jobs:
   - job: 'Linux'
     pool:
       vmImage: 'Ubuntu-16.04'
-    matrix:
-      3.4:
-        container: rstudio/r-base:3.6-xenial
-      3.5:
-        container: rstudio/r-base:3.5-xenial
-      3.6:
-        container: rstudio/r-base:3.6-xenial
+    strategy:
+      matrix:
+        3.4:
+          container: rstudio/r-base:3.4-xenial
+        3.5:
+          container: rstudio/r-base:3.5-xenial
+        3.6:
+          container: rstudio/r-base:3.6-xenial
     variables:
       R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
     steps:
