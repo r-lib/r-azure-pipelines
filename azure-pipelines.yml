@@ -55,7 +55,7 @@ jobs:
       - task: PublishTestResults@1
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: 'check/tests/test-*.xml'
+          testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
 
   - job: 'Windows'
     pool:
