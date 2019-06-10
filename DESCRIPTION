@@ -20,3 +20,5 @@ Suggests:
 URL: https://github.com/jimhester/azuretest
 BugReports: https://github.com/jimhester/azuretest/issues
 RoxygenNote: 6.1.1
+Remotes:
+    r-lib/covr
