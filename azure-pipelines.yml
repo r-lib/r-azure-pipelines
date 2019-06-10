@@ -32,10 +32,11 @@ jobs:
         displayName: 'Install package dependencies'
       - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning")'
         displayName: 'Check package'
-      - script: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'- task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: 'Cobertura'
-      summaryFileLocation: 'coverage.xml'
+      - script: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'
+      - task: PublishCodeCoverageResults@1
+        inputs:
+          codeCoverageTool: 'Cobertura'
+          summaryFileLocation: 'coverage.xml'
 
   - job: 'macOS'
     pool:
