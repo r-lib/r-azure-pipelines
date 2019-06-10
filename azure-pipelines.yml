@@ -1,6 +1,9 @@
 # R package
 # Test an R package
 
+variables:
+  CI: true
+
 jobs:
   - job: 'Linux'
     pool:
