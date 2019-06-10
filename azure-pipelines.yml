@@ -24,7 +24,7 @@ jobs:
       - script: |
            echo 'options(repos = "https://cloud.r-project.org")' > ~/.Rprofile
            mkdir -p ${R_LIBS_USER}
-           sudo apt-get update && sudo apt-get install -y libxml2-dev
+           sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
         displayName: 'Installing R'
       - script: |
            R -e "install.packages(c('remotes', 'rcmdcheck'))"
@@ -32,11 +32,6 @@ jobs:
         displayName: 'Install package dependencies'
       - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning")'
         displayName: 'Check package'
-      - script: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'
-      - task: PublishCodeCoverageResults@1
-        inputs:
-          codeCoverageTool: 'Cobertura'
-          summaryFileLocation: 'coverage.xml'
 
   - job: 'macOS'
     pool:
@@ -62,6 +57,11 @@ jobs:
         inputs:
           testResultsFormat: 'JUnit'
           testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
+      - script: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'
+      - task: PublishCodeCoverageResults@1
+        inputs:
+          codeCoverageTool: 'Cobertura'
+          summaryFileLocation: 'coverage.xml'
 
   - job: 'Windows'
     pool:
