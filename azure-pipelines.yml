@@ -47,11 +47,15 @@ jobs:
       - script: |
            echo 'options(repos = "$(CRAN)")' > ~/.Rprofile
            mkdir -p ${R_LIBS_USER}
-           R -e "install.packages(c('remotes', 'rcmdcheck'))"
+           R -e "install.packages(c('remotes', 'rcmdcheck', 'xml2'))"
            Rscript -e "remotes::install_deps(dependencies = TRUE)"
         displayName: 'Install package dependencies'
-      - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning")'
+      - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")'
         displayName: 'Check package'
+      - task: PublishTestResults@1
+        inputs:
+          testResultsFormat: 'JUnit'
+          testResultsFiles: 'check/tests/test-*.xml'
 
   - job: 'Windows'
     pool:
