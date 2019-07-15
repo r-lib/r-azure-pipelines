@@ -35,11 +35,11 @@ jobs:
         displayName: 'Install package dependencies'
       - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
         displayName: 'Check package'
-      - task: Cache@0
+      - task: CacheBeta@0
         inputs:
           key: 'DESCRIPTION'
           path: '$(R_LIBS_USER)'
-          displayName: 'Caching Packages'
+        displayName: 'Caching Packages'
 
   - job: 'macOS'
     pool:
