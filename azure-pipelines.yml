@@ -78,6 +78,7 @@ jobs:
     variables:
       R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
       CRAN: 'https://cloud.r-project.org'
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
     steps:
       - script: |
       - pwsh: |
