@@ -57,7 +57,7 @@ jobs:
       - script: |
            echo 'options(repos = "$(CRAN)")' > ~/.Rprofile
            mkdir -p ${R_LIBS_USER}
-           R -e "install.packages(c('remotes', 'rcmdcheck', 'xml2'))"
+           R -e "install.packages(c('remotes', 'rcmdcheck'))"
            Rscript -e "remotes::install_deps(dependencies = TRUE)" -e "remotes::install_github('r-lib/covr')"
         displayName: 'Install package dependencies'
       - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")'
@@ -91,7 +91,6 @@ jobs:
            echo options(repos = "$(CRAN)") > %HOMEDRIVE%%HOMEPATH%/Documents/.Rprofile
            mkdir $(R_LIBS_USER)
            R -e "install.packages(c('remotes', 'rcmdcheck'))"
-           Rscript -e "remotes::install_github('r-lib/xml2')" -e "remotes::install_deps(dependencies = TRUE)"
         displayName: 'Install package dependencies'
       - script: |
            set PATH=%PATH%;C:\Progra~1\R\R-3.6.1\bin
