@@ -33,7 +33,7 @@ jobs:
            R -e "install.packages(c('remotes', 'rcmdcheck'))"
            Rscript -e "remotes::install_deps(dependencies = TRUE)"
         displayName: 'Install package dependencies'
-      - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning")'
+      - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
         displayName: 'Check package'
 
   - job: 'macOS'
