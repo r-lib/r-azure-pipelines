@@ -31,7 +31,9 @@ jobs:
         displayName: 'Installing R'
       - task: CacheBeta@0
         inputs:
-          key: DESCRIPTION
+          key: |
+            DESCRIPTION
+            $(containerImage)
           path: $(R_LIBS_USER)
         displayName: 'Caching Packages'
       - script: |
