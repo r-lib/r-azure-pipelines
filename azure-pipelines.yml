@@ -37,8 +37,8 @@ jobs:
         displayName: 'Check package'
       - task: CacheBeta@0
         inputs:
-          key: 'DESCRIPTION'
-          path: '$(R_LIBS_USER)'
+          key: DESCRIPTION
+          path: $(R_LIBS_USER)
         displayName: 'Caching Packages'
 
   - job: 'macOS'
