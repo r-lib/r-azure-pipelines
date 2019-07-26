@@ -58,7 +58,7 @@ jobs:
            echo 'options(repos = "$(CRAN)")' > ~/.Rprofile
            mkdir -p ${R_LIBS_USER}
            R -e "install.packages(c('remotes', 'rcmdcheck'))"
-           Rscript -e "remotes::install_deps(dependencies = TRUE)" -e "remotes::install_github('r-lib/covr')"
+           Rscript -e "remotes::install_deps(dependencies = TRUE)" -e "remotes::install_github('r-lib/covr@azure-cobertura')"
         displayName: 'Install package dependencies'
       - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")'
         displayName: 'Check package'
