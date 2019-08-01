@@ -25,6 +25,7 @@ jobs:
     container: $[ variables['containerImage'] ]
     steps:
       - script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
+        displayName: Installing system dependencies
       - template: r-steps.yml
   - job: 'macOS'
     pool:
