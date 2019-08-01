@@ -32,7 +32,7 @@ jobs:
       - task: CacheBeta@0
         inputs:
           key: |
-            DESCRIPTION
+            ./DESCRIPTION
             $(containerImage)
           path: $(R_LIBS_USER)
         displayName: 'Caching Packages'
