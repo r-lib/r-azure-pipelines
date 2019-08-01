@@ -33,7 +33,7 @@ jobs:
         inputs:
           key: |
             ./DESCRIPTION
-            '$(containerImage)'
+            "$(containerImage)"
           path: $(R_LIBS_USER)
         displayName: 'Caching Packages'
       - script: |
