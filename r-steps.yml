@@ -2,6 +2,7 @@ steps:
   - script: |
       echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
       mkdir -p $(R_LIBS_USER)
+    displayName: "Setting up R library"
   - task: CacheBeta@0
     inputs:
       key: |
