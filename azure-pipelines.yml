@@ -3,6 +3,8 @@
 
 variables:
   CI: true
+  R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
+  CRAN: 'https://cloud.r-project.org'
 
 jobs:
   - job: 'Linux'
@@ -20,87 +22,28 @@ jobs:
           containerImage: rstudio/r-base:3.5-xenial
         R-3.6:
           containerImage: rstudio/r-base:3.6-xenial
-    variables:
-      R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
     container: $[ variables['containerImage'] ]
     steps:
-      - script: |
-           echo 'options(repos = "https://cloud.r-project.org", Ncpus = 2)' > ~/.Rprofile
-           mkdir -p ${R_LIBS_USER}
-           sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
-        displayName: 'Installing R'
-      - task: CacheBeta@0
-        inputs:
-          key: |
-            ./DESCRIPTION
-            "$(containerImage)"
-          path: $(R_LIBS_USER)
-        displayName: 'Caching Packages'
-      - script: |
-           R -e "install.packages(c('remotes', 'rcmdcheck'))"
-           Rscript -e "remotes::install_deps(dependencies = TRUE)"
-        displayName: 'Install package dependencies'
-      - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
-        displayName: 'Check package'
+      - script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
+      - template: r-steps.yml
   - job: 'macOS'
     pool:
       vmImage: 'macOS-10.13'
-    variables:
-      R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
-      CRAN: 'https://cloud.r-project.org'
     steps:
       - script: |
            curl -fLo /tmp/R.pkg "$(CRAN)/bin/macosx/R-latest.pkg"
            sudo installer -pkg "/tmp/R.pkg" -target /
            rm /tmp/R.pkg
         displayName: 'Installing R'
-      - script: |
-           echo 'options(repos = "$(CRAN)")' > ~/.Rprofile
-           mkdir -p ${R_LIBS_USER}
-           R -e "install.packages(c('remotes', 'rcmdcheck'))"
-           Rscript -e "remotes::install_deps(dependencies = TRUE)" -e "remotes::install_github('r-lib/covr@azure-cobertura')"
-        displayName: 'Install package dependencies'
-      - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "warning", check_dir = "check")'
-        displayName: 'Check package'
-      - task: PublishTestResults@1
-        inputs:
-          testResultsFormat: 'JUnit'
-          testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
-      - script: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'
-        displayName: 'Run code coverage'
-      - task: PublishCodeCoverageResults@1
-        inputs:
-          codeCoverageTool: 'Cobertura'
-          summaryFileLocation: 'coverage.xml'
-
+      - template: r-steps.yml
   - job: 'Windows'
     pool:
       vmImage: 'vs2017-win2016'
-    variables:
-      R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
-      CRAN: 'https://cloud.r-project.org'
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
     steps:
-      - powershell: git config --global core.autocrlf false
-        displayName: $(System.JobName) git config core.autocrlf
-      - checkout: self
-        fetchDepth: 5
-      - script: |
       - pwsh: |
            choco install r.project -y --no-progress
            Invoke-WebRequest "https://github.com/hannesmuehleisen/choco-rtools/raw/master/rtools.3.5.0.nupkg" -OutFile "rtools.3.5.0.nupkg"
            choco install rtools -s rtools.3.5.0.nupkg -f -y --no-progress
         displayName: 'Installing R'
-      - script: |
-           set PATH=C:\Rtools\bin;%PATH%;C:\Progra~1\R\R-3.6.1\bin
-           echo options(repos = "$(CRAN)") > %HOMEDRIVE%%HOMEPATH%/Documents/.Rprofile
-           mkdir $(R_LIBS_USER)
-           R -e "install.packages(c('remotes', 'rcmdcheck'))"
-           Rscript -e "remotes::install_deps(dependencies = TRUE)"
-           Rscript -e "remotes::install_github('r-lib/pkgbuild')"
-        displayName: 'Install package dependencies'
-      - script: |
-           set PATH=C:\Rtools\bin;%PATH%;C:\Progra~1\R\R-3.6.1\bin
-           Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning')"
-        displayName: 'Check package'
-
+      - script: set PATH=C:\Rtools\bin;%PATH%;C:\Progra~1\R\R-3.6.1\bin
+      - template: r-steps.yml
