@@ -1,9 +1,10 @@
 # R package
 # Test an R package
+---
 
 variables:
-  R_LIBS_USER: './R/library'
-  CRAN: 'https://cloud.r-project.org'
+  R_LIBS_USER: ./R/library
+  CRAN: https://cloud.r-project.org
   CI: true
 
 jobs:
