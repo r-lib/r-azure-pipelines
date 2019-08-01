@@ -1,7 +1,7 @@
 steps:
   - script: |
-      echo options(repos = "$(cran)", ncpus = 2) > %homedrive%%homepath%/documents/.rprofile
-      mkdir $(r_libs_user)
+      echo options(repos = "$(CRAN)", Ncpus = 2) > %HOMEDRIVE%%HOMEPATH%/Documents/.Rprofile
+      mkdir $(R_LIBS_USER)
     condition: eq(Agent.OS, 'Windows_NT')
   - script: |
       echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
