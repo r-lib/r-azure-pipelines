@@ -1,27 +1,27 @@
 steps:
-  - script: |
-    echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
-    mkdir -p $(R_LIBS_USER)
-  - task: CacheBeta@0
-    inputs:
-      key: |
-        ./DESCRIPTION
-        "$(containerImage)"
-      path: $(R_LIBS_USER)
-      displayName: 'Caching Packages'
-  - script: |
-    R -e "install.packages(c('remotes', 'rcmdcheck'))"
-    Rscript -e "remotes::install_deps(dependencies = TRUE)"
-    displayName: 'Install package dependencies'
-  - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
-    displayName: 'Check package'
-  - task: PublishTestResults@1
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
-  - script: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'
-    displayName: 'Run code coverage'
-  - task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: 'Cobertura'
-      summaryFileLocation: 'coverage.xml'
+- script: |
+  echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
+  mkdir -p $(R_LIBS_USER)
+- task: CacheBeta@0
+  inputs:
+    key: |
+      ./DESCRIPTION
+      "$(containerImage)"
+    path: $(R_LIBS_USER)
+    displayName: 'Caching Packages'
+- script: |
+  R -e "install.packages(c('remotes', 'rcmdcheck'))"
+  Rscript -e "remotes::install_deps(dependencies = TRUE)"
+  displayName: 'Install package dependencies'
+- script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
+  displayName: 'Check package'
+- task: PublishTestResults@1
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
+- script: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'
+  displayName: 'Run code coverage'
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: 'coverage.xml'
