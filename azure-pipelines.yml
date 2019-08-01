@@ -1,11 +1,10 @@
 # R package
 # Test an R package
----
 
 variables:
-  R_LIBS_USER: ./R/library
-  CRAN: https://cloud.r-project.org
   CI: true
+  R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
+  CRAN: 'https://cloud.r-project.org'
 
 jobs:
   - job: 'Linux'
