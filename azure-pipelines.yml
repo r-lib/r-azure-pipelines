@@ -25,7 +25,6 @@ jobs:
     container: $[ variables['containerImage'] ]
     steps:
       - script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
-        displayName: Installing system dependencies
       - template: r-steps.yml
   - job: 'macOS'
     pool:
@@ -38,8 +37,6 @@ jobs:
         displayName: 'Installing R'
       - template: r-steps.yml
   - job: 'Windows'
-    variables:
-      PATH: 'C:\Rtools\bin;%PATH%;C:\Progra~1\R\R-3.6.1\bin'
     pool:
       vmImage: 'vs2017-win2016'
     steps:
@@ -48,4 +45,5 @@ jobs:
            Invoke-WebRequest "https://github.com/hannesmuehleisen/choco-rtools/raw/master/rtools.3.5.0.nupkg" -OutFile "rtools.3.5.0.nupkg"
            choco install rtools -s rtools.3.5.0.nupkg -f -y --no-progress
         displayName: 'Installing R'
+      - script: set PATH=C:\Rtools\bin;%PATH%;C:\Progra~1\R\R-3.6.1\bin
       - template: r-steps.yml
