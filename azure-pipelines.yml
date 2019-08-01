@@ -29,13 +29,13 @@ jobs:
            mkdir -p ${R_LIBS_USER}
            sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
         displayName: 'Installing R'
-      #- task: CacheBeta@0
-        #inputs:
-          #key: |
-            #./DESCRIPTION
-            #$(containerImage)
-          #path: $(R_LIBS_USER)
-        #displayName: 'Caching Packages'
+      - task: CacheBeta@0
+        inputs:
+          key: |
+            ./DESCRIPTION
+            '$(containerImage)'
+          path: $(R_LIBS_USER)
+        displayName: 'Caching Packages'
       - script: |
            R -e "install.packages(c('remotes', 'rcmdcheck'))"
            Rscript -e "remotes::install_deps(dependencies = TRUE)"
