@@ -47,7 +47,6 @@ jobs:
            choco install r.project -y --no-progress
            Invoke-WebRequest "https://github.com/hannesmuehleisen/choco-rtools/raw/master/rtools.3.5.0.nupkg" -OutFile "rtools.3.5.0.nupkg"
            choco install rtools -s rtools.3.5.0.nupkg -f -y --no-progress
-           pathman /as C:\Rtools\bin
-           pathman /as C:\Progra~1\R\R-3.6.1\bin
+           setx path "C:\Rtools\bin;" + $env:Path + ";C:\Progra~1\R\R-3.6.1\bin"
         displayName: 'Installing R'
       - template: r-steps.yml
