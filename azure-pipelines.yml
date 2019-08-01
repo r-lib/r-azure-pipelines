@@ -2,7 +2,9 @@
 # Test an R package
 
 variables:
-  CI: true R_LIBS_USER: "./R/library" CRAN: "https://cloud.r-project.org"
+  R_LIBS_USER: './R/library'
+  CRAN: 'https://cloud.r-project.org'
+  CI: true
 
 jobs:
   - job: 'Linux'
