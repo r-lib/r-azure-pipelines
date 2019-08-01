@@ -16,11 +16,11 @@ steps:
         "$(containerImage)"
       path: $(R_LIBS_USER)
     displayName: 'Caching Packages'
-  - script: |
+  - bash: |
       R -e "install.packages(c('remotes', 'rcmdcheck'))"
       Rscript -e "remotes::install_deps(dependencies = TRUE)"
     displayName: 'Install package dependencies'
-  - script: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
+  - bash: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
     displayName: 'Check package'
   - task: PublishTestResults@1
     inputs:
