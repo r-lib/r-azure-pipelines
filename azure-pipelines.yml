@@ -25,7 +25,7 @@ jobs:
     container: $[ variables['containerImage'] ]
     steps:
       - script: |
-           echo 'options(repos = "https://cloud.r-project.org")' > ~/.Rprofile
+           echo 'options(repos = "https://cloud.r-project.org", Ncpus = 2)' > ~/.Rprofile
            mkdir -p ${R_LIBS_USER}
            sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
         displayName: 'Installing R'
@@ -67,6 +67,7 @@ jobs:
           testResultsFormat: 'JUnit'
           testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
       - script: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'
+        displayName: 'Run code coverage'
       - task: PublishCodeCoverageResults@1
         inputs:
           codeCoverageTool: 'Cobertura'
@@ -80,20 +81,26 @@ jobs:
       CRAN: 'https://cloud.r-project.org'
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
     steps:
+      - powershell: git config --global core.autocrlf false
+        displayName: $(System.JobName) git config core.autocrlf
+      - checkout: self
+        fetchDepth: 5
       - script: |
       - pwsh: |
-           choco install r --no-progress
+           choco install r.project -y --no-progress
            Invoke-WebRequest "https://github.com/hannesmuehleisen/choco-rtools/raw/master/rtools.3.5.0.nupkg" -OutFile "rtools.3.5.0.nupkg"
-           choco install rtools -s rtools.3.5.0.nupkg -f -y
+           choco install rtools -s rtools.3.5.0.nupkg -f -y --no-progress
         displayName: 'Installing R'
       - script: |
-           set PATH=%PATH%;C:\Progra~1\R\R-3.6.1\bin
+           set PATH=C:\Rtools\bin;%PATH%;C:\Progra~1\R\R-3.6.1\bin
            echo options(repos = "$(CRAN)") > %HOMEDRIVE%%HOMEPATH%/Documents/.Rprofile
            mkdir $(R_LIBS_USER)
            R -e "install.packages(c('remotes', 'rcmdcheck'))"
            Rscript -e "remotes::install_deps(dependencies = TRUE)"
+           Rscript -e "remotes::install_github('r-lib/pkgbuild')"
         displayName: 'Install package dependencies'
       - script: |
-           set PATH=%PATH%;C:\Progra~1\R\R-3.6.1\bin
+           set PATH=C:\Rtools\bin;%PATH%;C:\Progra~1\R\R-3.6.1\bin
            Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning')"
         displayName: 'Check package'
+
