@@ -3,7 +3,7 @@
 
 variables:
   CI: true
-  R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
+  R_LIBS_USER: '$(Agent.BuildDirectory)/library'
   CRAN: 'https://cloud.r-project.org'
 
 jobs:
