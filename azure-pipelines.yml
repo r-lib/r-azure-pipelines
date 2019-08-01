@@ -39,7 +39,7 @@ jobs:
       - template: r-steps.yml
   - job: 'Windows'
     variables:
-      PATH: 'C:\Rtools\bin;$(PATH);C:\Progra~1\R\R-3.6.1\bin'
+      PATH: 'C:\Rtools\bin;%PATH%;C:\Progra~1\R\R-3.6.1\bin'
     pool:
       vmImage: 'vs2017-win2016'
     steps:
