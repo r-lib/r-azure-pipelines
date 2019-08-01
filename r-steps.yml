@@ -2,11 +2,11 @@ steps:
   - script: |
       echo options(repos = "$(CRAN)", Ncpus = 2) > %HOMEDRIVE%%HOMEPATH%/Documents/.Rprofile
       mkdir $(R_LIBS_USER)
-    condition: eq(Agent.OS, 'Windows_NT')
+    condition: eq(variables['Agent.OS'], 'Windows_NT')
   - script: |
       echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
       mkdir -p $(R_LIBS_USER)
-    condition: ne(Agent.OS, 'Windows_NT')
+    condition: ne(variables['Agent.OS'], 'Windows_NT')
     displayName: "Setting up R library"
   - task: CacheBeta@0
     inputs:
