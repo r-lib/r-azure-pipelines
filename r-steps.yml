@@ -1,9 +1,9 @@
 steps:
-  - ${{ if eq(Agent.OS, 'Windows_NT') }}:
+  - $[ if eq(Agent.OS, 'Windows_NT') ]:
       - script: |
           echo options(repos = "$(CRAN)", Ncpus = 2) > %HOMEDRIVE%%HOMEPATH%/Documents/.Rprofile
           mkdir $(R_LIBS_USER)
-  - ${{ if ne(Agent.OS, 'Windows_NT') }}:
+  - $[ if ne(Agent.OS, 'Windows_NT') ]:
       - script: |
           echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
           mkdir -p $(R_LIBS_USER)
