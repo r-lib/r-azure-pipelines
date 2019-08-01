@@ -3,7 +3,7 @@
 
 variables:
   CI: true
-  R_LIBS_USER: '$(Agent.BuildDirectory)/library'
+  R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
   CRAN: 'https://cloud.r-project.org'
 
 jobs:
@@ -27,6 +27,7 @@ jobs:
       - script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
         displayName: "Install System Dependencies"
       - template: r-steps.yml
+
   - job: 'macOS'
     pool:
       vmImage: 'macOS-10.13'
@@ -37,6 +38,7 @@ jobs:
            rm /tmp/R.pkg
         displayName: 'Installing R'
       - template: r-steps.yml
+
   - job: 'Windows'
     pool:
       vmImage: 'vs2017-win2016'
