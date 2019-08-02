@@ -48,6 +48,6 @@ jobs:
            Invoke-WebRequest "https://github.com/hannesmuehleisen/choco-rtools/raw/master/rtools.3.5.0.nupkg" -OutFile "rtools.3.5.0.nupkg"
            choco install rtools -s rtools.3.5.0.nupkg -f -y --no-progress
            # from https://stackoverflow.com/a/49292594/2055486
-           Write-Host "##vso[task.setvariable variable=PATH;]${env:PATH};C:\Rtools\bin;C:\Progra~1\R\R-3.6.1\bin"
+           Write-Host "##vso[task.setvariable variable=PATH]${env:PATH};C:\Rtools\bin;C:\Progra~1\R\R-3.6.1\bin"
         displayName: 'Installing R'
       - template: r-steps.yml
