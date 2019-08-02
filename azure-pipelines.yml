@@ -44,10 +44,13 @@ jobs:
       vmImage: 'vs2017-win2016'
     steps:
       - pwsh: |
-           Invoke-WebRequest "$(CRAN)/bin/windows/base/R-3.6.1-win.exe" -OutFile "../R-win.exe"
-           Start-Process -FilePath ../R-win.exe -ArgumentList "/VERYSILENT /DIR=C:\R" -NoNewWindow -Wait
-           Invoke-WebRequest "$(CRAN)/bin/windows/Rtools/Rtools35.exe" -OutFile "../Rtools.exe"
-           Start-Process -FilePath "..\Rtools.exe" -ArgumentList /VERYSILENT -NoNewWindow -Wait
+           #Invoke-WebRequest "$(CRAN)/bin/windows/base/R-3.6.1-win.exe" -OutFile "../R-win.exe"
+           #Start-Process -FilePath ../R-win.exe -ArgumentList "/VERYSILENT /DIR=C:\R" -NoNewWindow -Wait
+           #Invoke-WebRequest "$(CRAN)/bin/windows/Rtools/Rtools35.exe" -OutFile "../Rtools.exe"
+           #Start-Process -FilePath "..\Rtools.exe" -ArgumentList /VERYSILENT -NoNewWindow -Wait
+           choco install r.project -y --no-progress
+           Invoke-WebRequest "https://github.com/hannesmuehleisen/choco-rtools/raw/master/rtools.3.5.0.nupkg" -OutFile "rtools.3.5.0.nupkg"
+           choco install rtools -s rtools.3.5.0.nupkg -f -y --no-progress
            # from https://stackoverflow.com/a/49292594/2055486
            Write-Host "##vso[task.setvariable variable=PATH]${env:PATH};C:\Rtools\bin;C:\Progra~1\R\R-3.6.1\bin"
         displayName: 'Installing R'
