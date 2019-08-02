@@ -21,6 +21,7 @@ steps:
       Rscript -e "remotes::install_deps(dependencies = TRUE)"
     displayName: 'Install package dependencies'
   - bash: |
+      echo $PATH
       Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check')"
     displayName: 'Check package'
   - task: PublishTestResults@1
