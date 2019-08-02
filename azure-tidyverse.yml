@@ -57,6 +57,6 @@ jobs:
            tzutil /s "Eastern Standard Time"
 
            # Set the PATH, from https://stackoverflow.com/a/49292594/2055486
-           Write-Host "##vso[task.setvariable variable=PATH]C:\Rtools\bin;C:\Rtools\mingw_64\bin;${env:PATH};C:\Progra~1\R\R-3.6.1\bin"
+           Write-Host "##vso[task.setvariable variable=PATH]C:\Rtools\bin;${env:PATH};C:\Progra~1\R\R-3.6.1\bin"
         displayName: 'Installing R'
       - template: r-steps.yml
