@@ -17,7 +17,6 @@ steps:
         displayName: 'Caching Packages'
   - bash: |
       Rscript -e "install.packages(c('remotes', 'rcmdcheck'))"
-      Rscript -e "remotes::install_github('r-lib/pkgbuild')" # we currently need devel pkgbuild for this to work well
       Rscript -e "remotes::install_deps(dependencies = TRUE)"
     displayName: 'Install package dependencies'
   - bash: |
