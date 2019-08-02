@@ -1,7 +1,7 @@
 steps:
-  - script: |
-      echo options(repos = "https://cloud.r-project.org", Ncpus = 2) > %HOMEDRIVE%%HOMEPATH%/Documents/.Rprofile
-      mkdir "R\library"
+  - bash: |
+      echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ${HOMEDRIVE}${HOMEPATH}/Documents/.Rprofile
+      mkdir -p $(R_LIBS_USER)
     condition: eq(variables['Agent.OS'], 'Windows_NT')
     displayName: "Setting up Windows R library"
   - script: |
