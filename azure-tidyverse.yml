@@ -1,9 +1,12 @@
+parameters:
+  R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
+  CRAN: 'https://cloud.r-project.org'
+
 jobs:
-  - variables:
-    CI: true
-    R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
-    CRAN: 'https://cloud.r-project.org'
   - job: 'Linux'
+    variables:
+      R_LIBS_USER: ${{parameters.R_LIBS_USER}}
+      CRAN: ${{parameters.CRAN}}
     pool:
       vmImage: 'Ubuntu-16.04'
     strategy:
@@ -25,6 +28,9 @@ jobs:
       - template: r-steps.yml
 
   - job: 'macOS'
+    variables:
+      R_LIBS_USER: ${{parameters.R_LIBS_USER}}
+      CRAN: ${{parameters.CRAN}}
     pool:
       vmImage: 'macOS-10.13'
     steps:
@@ -36,6 +42,9 @@ jobs:
       - template: r-steps.yml
 
   - job: 'Windows'
+    variables:
+      R_LIBS_USER: ${{parameters.R_LIBS_USER}}
+      CRAN: ${{parameters.CRAN}}
     pool:
       vmImage: 'vs2017-win2016'
     steps:
