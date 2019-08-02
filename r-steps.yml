@@ -16,7 +16,7 @@ steps:
           path: $(R_LIBS_USER)
         displayName: 'Caching Packages'
   - bash: |
-      R -e "install.packages(c('remotes', 'rcmdcheck'))"
+      Rscript -e "install.packages(c('remotes', 'rcmdcheck'))"
       Rscript -e "remotes::install_deps(dependencies = TRUE)"
     displayName: 'Install package dependencies'
   - bash: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check')"
