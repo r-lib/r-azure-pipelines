@@ -1,6 +1,7 @@
 parameters:
   R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
   CRAN: 'https://cloud.r-project.org'
+  arch: x64
 
 jobs:
   - job: 'Linux'
@@ -45,6 +46,7 @@ jobs:
     variables:
       R_LIBS_USER: ${{parameters.R_LIBS_USER}}
       CRAN: ${{parameters.CRAN}}
+      arch: ${{parameters.arch}}
     pool:
       vmImage: 'vs2017-win2016'
     steps:
@@ -55,8 +57,8 @@ jobs:
 
            # Set the timezone
            tzutil /s "Eastern Standard Time"
-
+      - ${{ if eq(parameters.arch, 'x64') }}:
            # Set the PATH, from https://stackoverflow.com/a/49292594/2055486
-           Write-Host "##vso[task.setvariable variable=PATH]C:\Rtools\bin;${env:PATH};C:\Progra~1\R\R-3.6.1\bin"
+        Write-Host "##vso[task.setvariable variable=PATH]C:\Rtools\bin;C:\Rtools\mingw_64\bin;${env:PATH};C:\Progra~1\R\R-3.6.1\bin\x64"
         displayName: 'Installing R'
       - template: r-steps.yml

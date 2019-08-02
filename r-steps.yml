@@ -30,7 +30,6 @@ steps:
     artifact: check_results
   - ${{ if eq(parameters.coverage, 'true') }}:
       - bash: |
-          echo 'options(covr.gcov = "C:/Rtools/mingw_64/bin/gcov.exe")' >> ~/.Rprofile
           Rscript -e "cov <- covr::package_coverage()" -e "covr::to_cobertura(cov, 'coverage.xml')"
         displayName: 'Run code coverage'
       - task: PublishCodeCoverageResults@1
