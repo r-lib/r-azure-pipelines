@@ -1,15 +1,20 @@
+parameters:
+  cache: true
+  coverage: true
+
 steps:
   - bash: |
       echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
       mkdir -p $(R_LIBS_USER)
     displayName: "Setting up Unix R library"
-  #- task: CacheBeta@0
-    #inputs:
-      #key: |
-        #DESCRIPTION
-        #"$(containerImage)"
-      #path: $(R_LIBS_USER)
-    #displayName: 'Caching Packages'
+  - ${{ if eq(parameters.coverage, 'true') }}:
+      - task: CacheBeta@0
+        inputs:
+          key: |
+            DESCRIPTION
+            "$(containerImage)"
+          path: $(R_LIBS_USER)
+        displayName: 'Caching Packages'
   - bash: |
       R -e "install.packages(c('remotes', 'rcmdcheck'))"
       Rscript -e "remotes::install_deps(dependencies = TRUE)"
@@ -20,9 +25,10 @@ steps:
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
-  - bash: Rscript -e "cov <- covr::package_coverage()" -e "covr::to_cobertura(cov, 'coverage.xml')"
-    displayName: 'Run code coverage'
-  - task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: 'Cobertura'
-      summaryFileLocation: 'coverage.xml'
+  - ${{ if eq(parameters.coverage, 'true') }}:
+      - bash: Rscript -e "cov <- covr::package_coverage()" -e "covr::to_cobertura(cov, 'coverage.xml')"
+        displayName: 'Run code coverage'
+      - task: PublishCodeCoverageResults@1
+        inputs:
+          codeCoverageTool: 'Cobertura'
+          summaryFileLocation: 'coverage.xml'
