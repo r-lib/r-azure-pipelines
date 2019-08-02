@@ -1,10 +1,3 @@
-resources:
-  repositories:
-    - repository: azuretest
-      type: github
-      name: jimhester/azuretest
-      endpoint: jimhester/azuretest
-
 variables:
   CI: true
   R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
@@ -30,7 +23,7 @@ jobs:
     steps:
       - script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
         displayName: "Install System Dependencies"
-      - template: r-steps.yml@azuretest
+      - template: r-steps.yml
 
   - job: 'macOS'
     pool:
@@ -41,7 +34,7 @@ jobs:
            sudo installer -pkg "/tmp/R.pkg" -target /
            rm /tmp/R.pkg
         displayName: 'Installing R'
-      - template: r-steps.yml@azuretest
+      - template: r-steps.yml
 
   - job: 'Windows'
     pool:
@@ -58,4 +51,4 @@ jobs:
            # Set the PATH, from https://stackoverflow.com/a/49292594/2055486
            Write-Host "##vso[task.setvariable variable=PATH]${env:PATH};C:\Rtools\bin;C:\Progra~1\R\R-3.6.1\bin"
         displayName: 'Installing R'
-      - template: r-steps.yml@azuretest
+      - template: r-steps.yml
