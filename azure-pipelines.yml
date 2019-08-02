@@ -43,6 +43,8 @@ jobs:
   - job: 'Windows'
     pool:
       vmImage: 'vs2017-win2016'
+    variables:
+      TZ: UTC0
     steps:
       - pwsh: |
            #Invoke-WebRequest "$(CRAN)/bin/windows/base/R-3.6.1-win.exe" -OutFile "../R-win.exe"
