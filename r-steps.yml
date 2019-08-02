@@ -14,7 +14,7 @@ steps:
       R -e "install.packages(c('remotes', 'rcmdcheck'))"
       Rscript -e "remotes::install_deps(dependencies = TRUE)"
     displayName: 'Install package dependencies'
-  - bash: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
+  - bash: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check')"
     displayName: 'Check package'
   - task: PublishTestResults@1
     inputs:
