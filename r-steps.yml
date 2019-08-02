@@ -1,5 +1,7 @@
 steps:
   - bash: |
+      echo 'options(repos = "$(CRAN)", Ncpus = 2)'
+      echo ${HOMEDRIVE}${HOMEPATH}/Documents/.Rprofile
       echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ${HOMEDRIVE}${HOMEPATH}/Documents/.Rprofile
       mkdir -p $(R_LIBS_USER)
     condition: eq(variables['Agent.OS'], 'Windows_NT')
