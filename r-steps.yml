@@ -1,14 +1,7 @@
 steps:
-  #- bash: |
-      #echo 'options(repos = "$(CRAN)", Ncpus = 2)'
-      #echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ${HOMEDRIVE}${HOMEPATH}\Documents\.Rprofile
-      #mkdir -p $(R_LIBS_USER)
-    #condition: eq(variables['Agent.OS'], 'Windows_NT')
-    #displayName: "Setting up Windows R library"
   - bash: |
       echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
       mkdir -p $(R_LIBS_USER)
-    #condition: ne(variables['Agent.OS'], 'Windows_NT')
     displayName: "Setting up Unix R library"
   #- task: CacheBeta@0
     #inputs:
@@ -21,13 +14,13 @@ steps:
       R -e "install.packages(c('remotes', 'rcmdcheck'))"
       Rscript -e "remotes::install_deps(dependencies = TRUE)"
     displayName: 'Install package dependencies'
-  - bash: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
+  - bash: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
     displayName: 'Check package'
   - task: PublishTestResults@1
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
-  - script: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'
+  - bash: Rscript -e 'cov <- covr::package_coverage()' -e 'covr::to_cobertura(cov, "coverage.xml")'
     displayName: 'Run code coverage'
   - task: PublishCodeCoverageResults@1
     inputs:
