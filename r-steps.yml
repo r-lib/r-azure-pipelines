@@ -1,5 +1,5 @@
 parameters:
-  args: '--no-manual'
+  args: "'--no-manual'"
   cache: true
   coverage: true
 

@@ -65,4 +65,4 @@ jobs:
           displayName: 'Setting PATH'
       - template: r-steps.yml
         parameters:
-          args: c("--no-manual", "--no-multiarch")
+          args: 'c("--no-manual", "--no-multiarch")'
