@@ -5,6 +5,7 @@ variables:
   CI: true
   R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
   CRAN: 'https://cloud.r-project.org'
+  TZ: Etc/UTC
 
 jobs:
   #- job: 'Linux'
