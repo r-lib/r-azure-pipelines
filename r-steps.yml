@@ -27,8 +27,10 @@ steps:
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
+    condition: succeededOrFailed()
   - publish: check
     artifact: $(Build.BuildNumber)-$(Agent.JobName)-check_results
+    condition: succeededOrFailed()
   - ${{ if eq(parameters.coverage, 'true') }}:
       - bash: |
           Rscript -e "cov <- covr::package_coverage()" -e "covr::to_cobertura(cov, 'coverage.xml')"

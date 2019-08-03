@@ -61,8 +61,9 @@ jobs:
       - ${{ if eq(parameters.arch, 'x64') }}:
            # Set the PATH, from https://stackoverflow.com/a/49292594/2055486
         - pwsh: |
-            Write-Host "##vso[task.setvariable variable=PATH]C:\Rtools\bin;${env:PATH};C:\Progra~1\R\R-3.6.1\bin\x64"
+            Write-Host "##vso[task.setvariable variable=PATH]C:\Rtools\bin;${env:PATH};C:\Progra~1\R\R-3.6.1\bin"
           displayName: 'Setting PATH'
       - template: r-steps.yml
         parameters:
           args: 'c("--no-manual", "--no-multiarch")'
+          coverage: false
