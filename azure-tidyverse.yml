@@ -29,6 +29,9 @@ jobs:
       - script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
         displayName: "Install System Dependencies"
       - template: r-steps.yml
+        parameters:
+          coverage: false
+
 
   - job: 'macOS'
     variables:
