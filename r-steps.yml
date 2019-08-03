@@ -16,6 +16,7 @@ steps:
             "$(containerImage)"
           path: $(R_LIBS_USER)
         displayName: 'Caching Packages'
+        continueOnError: true
   - bash: |
       Rscript -e "install.packages(c('remotes', 'rcmdcheck'))"
       Rscript -e "remotes::install_deps(dependencies = TRUE)"
