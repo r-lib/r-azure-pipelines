@@ -9,6 +9,7 @@ jobs:
       R_LIBS_USER: ${{parameters.R_LIBS_USER}}
       CRAN: ${{parameters.CRAN}}
       CI: true
+      TZ: UTC
     pool:
       vmImage: 'Ubuntu-16.04'
     strategy:
