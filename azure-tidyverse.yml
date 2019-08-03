@@ -41,6 +41,8 @@ jobs:
            rm /tmp/R.pkg
         displayName: 'Installing R'
       - template: r-steps.yml
+        parameters:
+          coverage: true
 
   - job: 'Windows'
     variables:
