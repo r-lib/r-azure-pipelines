@@ -1,57 +1,9 @@
-# R package
-# Test an R package
-
-variables:
-  CI: true
-  R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
-  CRAN: 'https://cloud.r-project.org'
+resources:
+  repositories:
+    - repository: azuretest
+      type: github
+      name: jimhester/azuretest
+      endpoint: jimhester/azuretest
 
 jobs:
-  - job: 'Linux'
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    strategy:
-      matrix:
-        R-3.2:
-          containerImage: rstudio/r-base:3.2-xenial
-        R-3.3:
-          containerImage: rstudio/r-base:3.3-xenial
-        R-3.4:
-          containerImage: rstudio/r-base:3.4-xenial
-        R-3.5:
-          containerImage: rstudio/r-base:3.5-xenial
-        R-3.6:
-          containerImage: rstudio/r-base:3.6-xenial
-    container: $[ variables['containerImage'] ]
-    steps:
-      - script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
-        displayName: "Install System Dependencies"
-      - template: r-steps.yml
-
-  - job: 'macOS'
-    pool:
-      vmImage: 'macOS-10.13'
-    steps:
-      - script: |
-           curl -fLo /tmp/R.pkg "$(CRAN)/bin/macosx/R-latest.pkg"
-           sudo installer -pkg "/tmp/R.pkg" -target /
-           rm /tmp/R.pkg
-        displayName: 'Installing R'
-      - template: r-steps.yml
-
-  - job: 'Windows'
-    pool:
-      vmImage: 'vs2017-win2016'
-    steps:
-      - pwsh: |
-           choco install r.project -y --no-progress
-           Invoke-WebRequest "https://github.com/hannesmuehleisen/choco-rtools/raw/master/rtools.3.5.0.nupkg" -OutFile "rtools.3.5.0.nupkg"
-           choco install rtools -s rtools.3.5.0.nupkg -f -y --no-progress
-
-           # Set the timezone
-           tzutil /s "Eastern Standard Time"
-
-           # Set the PATH, from https://stackoverflow.com/a/49292594/2055486
-           Write-Host "##vso[task.setvariable variable=PATH]${env:PATH};C:\Rtools\bin;C:\Progra~1\R\R-3.6.1\bin"
-        displayName: 'Installing R'
-      - template: r-steps.yml
+  - template: azure-tidyverse.yml@azuretest
