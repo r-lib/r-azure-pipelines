@@ -1,7 +1,7 @@
 parameters:
   args: "'--no-manual'"
   cache: true
-  coverage: true
+  coverage: false
 
 steps:
   - bash: |

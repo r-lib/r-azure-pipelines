@@ -75,3 +75,4 @@ jobs:
       - template: r-steps.yml
         parameters:
           args: "c('--no-manual', '--no-multiarch')"
+          coverage: false
