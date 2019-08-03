@@ -8,6 +8,7 @@ jobs:
     variables:
       R_LIBS_USER: ${{parameters.R_LIBS_USER}}
       CRAN: ${{parameters.CRAN}}
+      CI: true
     pool:
       vmImage: 'Ubuntu-16.04'
     strategy:
@@ -32,6 +33,7 @@ jobs:
     variables:
       R_LIBS_USER: ${{parameters.R_LIBS_USER}}
       CRAN: ${{parameters.CRAN}}
+      CI: true
     pool:
       vmImage: 'macOS-10.13'
     steps:
@@ -49,6 +51,7 @@ jobs:
       R_LIBS_USER: ${{parameters.R_LIBS_USER}}
       CRAN: ${{parameters.CRAN}}
       arch: ${{parameters.arch}}
+      CI: true
     pool:
       vmImage: 'vs2017-win2016'
     steps:
