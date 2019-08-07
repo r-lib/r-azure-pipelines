@@ -18,7 +18,8 @@ Suggests:
     xml2,
     covr
 Remotes:
-    r-lib/covr
+    r-lib/covr,
+    jimhester/testthat@junit-utc_timestamp
 URL: https://github.com/jimhester/azuretest
 BugReports: https://github.com/jimhester/azuretest/issues
 RoxygenNote: 6.1.1
