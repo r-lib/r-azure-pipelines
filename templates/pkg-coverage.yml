@@ -1,6 +1,6 @@
 steps:
   - bash: |
-      Rscript -e "cov <- covr::package_coverage()" -e "covr::to_cobertura(cov, 'coverage.xml')"
+      Rscript -e "cov <- covr::azure()"
     displayName: 'Run code coverage'
   - task: PublishCodeCoverageResults@1
     inputs:
