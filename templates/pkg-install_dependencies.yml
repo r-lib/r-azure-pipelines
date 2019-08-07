@@ -2,5 +2,4 @@ steps:
   - bash: |
       Rscript -e "install.packages(c('remotes', 'rcmdcheck'))"
       Rscript -e "remotes::install_deps(dependencies = TRUE)"
-      Rscript -e "remotes::install_github('r-lib/pkgbuild')"
     displayName: 'Install package dependencies'
