@@ -1,3 +1,6 @@
+parameters:
+  args: "'--no-manual'"
+
 steps:
   - bash: |
       Rscript -e "rcmdcheck::rcmdcheck(args = ${{parameters.args}}, error_on = 'error', check_dir = 'check')"

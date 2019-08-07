@@ -11,5 +11,7 @@ steps:
       - template: pkg-cache_dependencies.yml
   - template: pkg-install_dependencies.yml
   - template: pkg-rcmd_check.yml
+    parameters:
+      args: ${{parameters.args}}
   - ${{ if eq(parameters.coverage, 'true') }}:
       - template: pkg-coverage.yml
