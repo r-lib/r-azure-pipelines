@@ -7,7 +7,7 @@ steps:
   - bash: |
       echo 'options(repos = "$(CRAN)", Ncpus = 2, crayon.enabled = TRUE, cli.unicode = TRUE)' > ~/.Rprofile
       mkdir -p $(R_LIBS_USER)
-    displayName: "Setting up Unix R library"
+    displayName: "Setting up R library"
   - ${{ if eq(parameters.cache, 'true') }}:
       - task: CacheBeta@0
         inputs:

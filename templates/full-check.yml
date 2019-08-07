@@ -1,0 +1,15 @@
+# Run a full package check, including coverage and caching
+
+parameters:
+  args: "'--no-manual'"
+  cache: true
+  coverage: false
+
+steps:
+  - template: templates/pkg-library.yml
+  - ${{ if eq(parameters.cache, 'true') }}:
+    -template: templates/pkg-cache.yml
+  - template: templates/pkg-dependencies.yml
+  - template: templates/pkg-check.yml
+  - ${{ if eq(parameters.coverage, 'true') }}:
+    -template: templates/pkg-coverage.yml

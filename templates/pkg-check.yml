@@ -1,0 +1,13 @@
+steps:
+  - bash: |
+      Rscript -e "rcmdcheck::rcmdcheck(args = ${{parameters.args}}, error_on = 'error', check_dir = 'check')"
+    displayName: 'Check package'
+  - task: PublishTestResults@1
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: 'check/*.Rcheck/tests/test-*.xml'
+      testRunTitle: $(Agent.JobName)
+    condition: succeededOrFailed()
+  - publish: check
+    artifact: $(Build.BuildNumber)-$(Agent.JobName)-check_results
+    condition: succeededOrFailed()
