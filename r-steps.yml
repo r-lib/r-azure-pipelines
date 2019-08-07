@@ -8,7 +8,7 @@ steps:
       echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
       mkdir -p $(R_LIBS_USER)
     displayName: "Setting up Unix R library"
-  - ${{ if eq(parameters.coverage, 'true') }}:
+  - ${{ if eq(parameters.cache, 'true') }}:
       - task: CacheBeta@0
         inputs:
           key: |
