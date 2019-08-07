@@ -1,4 +1,4 @@
-# Run a full package check, including coverage and caching
+# Run a full package workflow, including coverage and caching
 
 parameters:
   args: "'--no-manual'"
@@ -10,6 +10,6 @@ steps:
   - ${{ if eq(parameters.cache, 'true') }}:
     -template: templates/pkg-cache_dependencies.yml
   - template: templates/pkg-install_dependencies.yml
-  - template: templates/pkg-check.yml
+  - template: templates/pkg-rcmd_check.yml
   - ${{ if eq(parameters.coverage, 'true') }}:
     -template: templates/pkg-coverage.yml

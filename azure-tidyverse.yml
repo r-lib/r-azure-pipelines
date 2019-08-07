@@ -28,7 +28,7 @@ jobs:
     steps:
       - script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
         displayName: "Install System Dependencies"
-      - template: r-steps.yml
+      - template: templates/pkg-workflow.yml
         parameters:
           coverage: false
 
@@ -46,7 +46,7 @@ jobs:
            sudo installer -pkg "/tmp/R.pkg" -target /
            rm /tmp/R.pkg
         displayName: 'Installing R'
-      - template: r-steps.yml
+      - template: templates/pkg-workflow.yml
         parameters:
           coverage: true
 
@@ -72,7 +72,7 @@ jobs:
         - pwsh: |
             Write-Host "##vso[task.setvariable variable=PATH]C:\Rtools\bin;C:\Rtools\mingw_64\bin;${env:PATH};C:\Progra~1\R\R-3.6.1\bin"
           displayName: 'Setting PATH'
-      - template: r-steps.yml
+      - template: templates/pkg-workflow.yml
         parameters:
           args: "c('--no-manual', '--no-multiarch')"
           coverage: false
