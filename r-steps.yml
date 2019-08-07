@@ -5,7 +5,7 @@ parameters:
 
 steps:
   - bash: |
-      echo 'options(repos = "$(CRAN)", Ncpus = 2)' > ~/.Rprofile
+      echo 'options(repos = "$(CRAN)", Ncpus = 2, crayon.enabled = TRUE)' > ~/.Rprofile
       mkdir -p $(R_LIBS_USER)
     displayName: "Setting up Unix R library"
   - ${{ if eq(parameters.cache, 'true') }}:
