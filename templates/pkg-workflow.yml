@@ -8,8 +8,8 @@ parameters:
 steps:
   - template: pkg-library.yml
   - ${{ if eq(parameters.cache, 'true') }}:
-    -template: pkg-cache_dependencies.yml
+      - template: pkg-cache_dependencies.yml
   - template: pkg-install_dependencies.yml
   - template: pkg-rcmd_check.yml
   - ${{ if eq(parameters.coverage, 'true') }}:
-    -template: pkg-coverage.yml
+      - template: pkg-coverage.yml
