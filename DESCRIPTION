@@ -17,9 +17,6 @@ Suggests:
     testthat (>= 2.1.0),
     xml2,
     covr
-Remotes:
-    r-lib/covr,
-    jimhester/testthat@junit-utc_timestamp
 URL: https://github.com/jimhester/azuretest
 BugReports: https://github.com/jimhester/azuretest/issues
 RoxygenNote: 6.1.1
