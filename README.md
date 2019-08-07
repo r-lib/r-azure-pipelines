@@ -34,7 +34,7 @@ resources:
   repositories:
     - repository: r-azure-pipelines
       type: github
-      name: r-azure-pipelines
+      name: r-lib/r-azure-pipelines
       endpoint: REPLACE-ME
 
 jobs:
