@@ -76,3 +76,4 @@ jobs:
         parameters:
           args: "c('--no-manual', '--no-multiarch')"
           coverage: false
+          cache: false
