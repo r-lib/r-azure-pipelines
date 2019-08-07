@@ -4,3 +4,7 @@
 foo <- function(x) {
   1
 }
+
+bar <- function(x) {
+  stop("hi")
+}
