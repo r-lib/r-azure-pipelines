@@ -6,10 +6,10 @@ parameters:
   coverage: false
 
 steps:
-  - template: templates/pkg-library.yml
+  - template: pkg-library.yml
   - ${{ if eq(parameters.cache, 'true') }}:
-    -template: templates/pkg-cache_dependencies.yml
-  - template: templates/pkg-install_dependencies.yml
-  - template: templates/pkg-rcmd_check.yml
+    -template: pkg-cache_dependencies.yml
+  - template: pkg-install_dependencies.yml
+  - template: pkg-rcmd_check.yml
   - ${{ if eq(parameters.coverage, 'true') }}:
-    -template: templates/pkg-coverage.yml
+    -template: pkg-coverage.yml
