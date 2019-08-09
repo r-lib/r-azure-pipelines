@@ -2,6 +2,7 @@ parameters:
   R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
   CRAN: 'https://cloud.r-project.org'
   arch: x64
+  coverage: true
 
 jobs:
   - job: 'Linux'
@@ -48,7 +49,7 @@ jobs:
         displayName: 'Installing R'
       - template: templates/pkg-workflow.yml
         parameters:
-          coverage: true
+          coverage: ${{parameters.coverage}}
 
   - job: 'Windows'
     variables:
