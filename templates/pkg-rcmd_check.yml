@@ -3,7 +3,7 @@ parameters:
 
 steps:
   - bash: |
-      Rscript -e "rcmdcheck::rcmdcheck(args = ${{parameters.args}}, error_on = 'error', check_dir = 'check')"
+      Rscript -e "rcmdcheck::rcmdcheck(args = ${{parameters.args}}, error_on = 'warning', check_dir = 'check')"
     displayName: 'Check package'
   - task: PublishTestResults@1
     inputs:
