@@ -2,7 +2,7 @@ resources:
   repositories:
     - repository: r-azure-pipelines
       type: github
-      name: r-lib/r-azure-pipelines
+      name: r-lib/r-azure-pipelines@test-env
       endpoint: r-lib
 
 jobs:
