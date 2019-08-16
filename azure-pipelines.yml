@@ -2,8 +2,9 @@ resources:
   repositories:
     - repository: r-azure-pipelines
       type: github
-      name: r-lib/r-azure-pipelines@test-env
+      name: r-lib/r-azure-pipelines
       endpoint: r-lib
+      ref: refs/tags/test-env
 
 jobs:
   - template: azure-tidyverse.yml@r-azure-pipelines
