@@ -4,14 +4,11 @@ parameters:
   coverage: true
   env: {}
 
-variables:
-  CRAN: ${{parameters.CRAN}}
-  R_LIBS_USER: ${{parameters.R_LIBS_USER}}
-  CI: true
-
 jobs:
   - job: 'Linux'
     variables:
+      CRAN: ${{parameters.CRAN}}
+      R_LIBS_USER: ${{parameters.R_LIBS_USER}}
       TZ: UTC
     env: ${{ parameters.env }}
     pool:
@@ -36,6 +33,9 @@ jobs:
 
 
   - job: 'macOS'
+    variables:
+      CRAN: ${{parameters.CRAN}}
+      R_LIBS_USER: ${{parameters.R_LIBS_USER}}
     env: ${{ parameters.env }}
     pool:
       vmImage: 'macOS-10.13'
@@ -45,6 +45,9 @@ jobs:
           coverage: ${{parameters.coverage}}
 
   - job: 'Windows'
+    variables:
+      CRAN: ${{parameters.CRAN}}
+      R_LIBS_USER: ${{parameters.R_LIBS_USER}}
     env: ${{ parameters.env }}
     pool:
       vmImage: 'vs2017-win2016'
