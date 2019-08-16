@@ -27,6 +27,7 @@ jobs:
           containerImage: rstudio/r-base:3.6-xenial
     container: $[ variables['containerImage'] ]
     steps:
+      - template: templates/r-setup-linux.yml
       - template: templates/pkg-workflow.yml
         parameters:
           coverage: false
@@ -40,6 +41,7 @@ jobs:
     pool:
       vmImage: 'macOS-10.13'
     steps:
+      - template: templates/r-setup-macOS.yml
       - template: templates/pkg-workflow.yml
         parameters:
           coverage: ${{parameters.coverage}}
@@ -52,6 +54,7 @@ jobs:
     pool:
       vmImage: 'vs2017-win2016'
     steps:
+      - template: templates/r-setup-windows.yml
       - template: templates/pkg-workflow.yml
         parameters:
           args: "c('--no-manual', '--no-multiarch')"

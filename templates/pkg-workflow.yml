@@ -6,7 +6,6 @@ parameters:
   coverage: false
 
 steps:
-  - template: r-setup.yml
   - template: pkg-library.yml
   - ${{ if eq(parameters.cache, 'true') }}:
       - template: pkg-cache_dependencies.yml
