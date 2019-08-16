@@ -1,0 +1,12 @@
+steps:
+  - pwsh: |
+       choco install r.project -y --no-progress
+       Invoke-WebRequest "https://github.com/hannesmuehleisen/choco-rtools/raw/master/rtools.3.5.0.nupkg" -OutFile "..\rtools.3.5.0.nupkg"
+       choco install rtools -s ..\rtools.3.5.0.nupkg -f -y --no-progress
+
+       # Set the timezone
+       tzutil /s "GMT Standard Time"
+    displayName: 'Installing R'
+  - pwsh: |
+       Write-Host "##vso[task.setvariable variable=PATH]C:\Rtools\bin;C:\Rtools\mingw_64\bin;${env:PATH};C:\Progra~1\R\R-3.6.1\bin"
+    displayName: 'Setting PATH'

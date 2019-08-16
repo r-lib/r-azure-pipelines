@@ -1,0 +1,7 @@
+steps:
+  - ${{ if eq(Agent.OS, 'Linux') }}:
+      - template: r-setup-linux.yml
+  - ${{ if eq(Agent.OS, 'Windows_NT') }}:
+      - template: r-setup-windows.yml
+  - ${{ if eq(Agent.OS, 'Darwin') }}:
+      - template: r-setup-macOS.yml
