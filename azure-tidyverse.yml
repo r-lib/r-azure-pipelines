@@ -2,6 +2,7 @@ parameters:
   R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
   CRAN: 'https://cloud.r-project.org'
   coverage: true
+  env: {}
 
 variables:
   CRAN: ${{parameters.CRAN}}
@@ -12,6 +13,7 @@ jobs:
   - job: 'Linux'
     variables:
       TZ: UTC
+    env: ${{ parameters.env }}
     pool:
       vmImage: 'Ubuntu-16.04'
     strategy:
@@ -34,6 +36,7 @@ jobs:
 
 
   - job: 'macOS'
+    env: ${{ parameters.env }}
     pool:
       vmImage: 'macOS-10.13'
     steps:
@@ -42,6 +45,7 @@ jobs:
           coverage: ${{parameters.coverage}}
 
   - job: 'Windows'
+    env: ${{ parameters.env }}
     pool:
       vmImage: 'vs2017-win2016'
     steps:
