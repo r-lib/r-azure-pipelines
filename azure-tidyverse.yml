@@ -10,7 +10,7 @@ jobs:
       CRAN: ${{parameters.CRAN}}
       R_LIBS_USER: ${{parameters.R_LIBS_USER}}
       TZ: UTC
-    env: ${{ parameters.env }}
+      ${{ insert }}: ${{ parameters.env }}
     pool:
       vmImage: 'Ubuntu-16.04'
     strategy:
@@ -36,7 +36,7 @@ jobs:
     variables:
       CRAN: ${{parameters.CRAN}}
       R_LIBS_USER: ${{parameters.R_LIBS_USER}}
-    env: ${{ parameters.env }}
+      ${{ insert }}: ${{ parameters.env }}
     pool:
       vmImage: 'macOS-10.13'
     steps:
@@ -48,7 +48,7 @@ jobs:
     variables:
       CRAN: ${{parameters.CRAN}}
       R_LIBS_USER: ${{parameters.R_LIBS_USER}}
-    env: ${{ parameters.env }}
+      ${{ insert }}: ${{ parameters.env }}
     pool:
       vmImage: 'vs2017-win2016'
     steps:
