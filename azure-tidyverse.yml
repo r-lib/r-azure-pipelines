@@ -1,6 +1,6 @@
 parameters:
   R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
-  CRAN: 'https://cloud.r-project.org'
+  CRAN: 'https://demo.rstudiopm.com/all/__linux__/xenial/latest'
   coverage: true
   env: {}
 
