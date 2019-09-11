@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/jamesfhester/azuretest/_apis/build/status/jimhester.azuretest?branchName=master)](https://dev.azure.com/jamesfhester/azuretest/\_build/latest?definitionId=2&branchName=master)
+[![Build Status](https://dev.azure.com/r-lib/r-azure-pipelines/_apis/build/status/r-lib.r-azure-pipelines?branchName=master)](https://dev.azure.com/r-lib/r-azure-pipelines/\_build/latest?definitionId=3&branchName=master)
 
 ## R CI with Azure Pipelines
 
