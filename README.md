@@ -1,4 +1,7 @@
+<!-- badges: start -->
+[![Lifecycle: superseded](https://img.shields.io/badge/lifecycle-superseded-orange.svg)](https://www.tidyverse.org/lifecycle/#superseded)
 [![Build Status](https://dev.azure.com/r-lib/r-azure-pipelines/_apis/build/status/r-lib.r-azure-pipelines?branchName=master)](https://dev.azure.com/r-lib/r-azure-pipelines/\_build/latest?definitionId=3&branchName=master)
+<!-- badges: end -->
 
 ## R CI with Azure Pipelines
 
@@ -40,3 +43,7 @@ resources:
 jobs:
   - template: azure-tidyverse.yml@r-azure-pipelines
 ```
+
+## Status [![Lifecycle: superseded](https://img.shields.io/badge/lifecycle-superseded-orange.svg)](https://www.tidyverse.org/lifecycle/#superseded)
+
+r-azure-pipelines is superseded: this means it is no longer being actively supported. We recommend using [r-lib/actions](https://github.com/r-lib/actions) instead.
